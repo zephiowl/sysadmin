@@ -9,11 +9,9 @@ The goal is to keep all sysadmin-related work **versioned, documented, and repro
 
 ## 📂 Repository Structure
 ```
-├─ services/ # Service definitions (Dockerfiles, configs, templates)
-├─ deployments/ # Dockploy YAMLs for live environments
+├─ services/ # Service operation files (Code, assets etc)
 ├─ scripts/ # Backup, restore, and utility scripts
-├─ traefik/ # Reverse proxy configs
-├─ docs/ # Documentation and runbooks
+├─ stacks/ # Configs, dockerfiles
 └─ README.md # You're here
 ```
 
