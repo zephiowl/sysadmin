@@ -1,11 +1,11 @@
 /**
  * @name Scriptorium
  * @description A rounded Discord theme with a dark academia oak wood, aged parchment, and softly gilded aesthetic.
- * @author Zephira58
+ * @author zephiowl
  * @version 1.0.3
  * @invite xeAEyzAWEv
  * @website https://zephira.uk/#
- * @source https://github.com/Zephira58/dotfiles/blob/main/misc/discord/scriptorium.css
+ * @source https://github.com/zephiowl/dotfiles/blob/main/misc/discord/scriptorium.css
  * @authorId 292971545956188160
  * @authorLink https://zephira.uk/
  */
@@ -45,7 +45,7 @@ body {
 
     /* dms button options */
     --custom-dms-icon: custom;
-    --dms-icon-svg-url: url('https://raw.githubusercontent.com/Zephira58/dotfiles/refs/heads/main/misc/discord/assets/scriptorium.svg');
+    --dms-icon-svg-url: url('https://raw.githubusercontent.com/zephiowl/dotfiles/refs/heads/main/misc/discord/assets/scriptorium.svg');
     --dms-icon-svg-size: 90%;
     --dms-icon-color-before: var(--text-4);
     --dms-icon-color-after: var(--text-1);

@@ -23,7 +23,7 @@ The goal is to keep all sysadmin-related work **versioned, documented, and repro
 
 ### Clone Repo
 ```bash
-git clone https://github.com/Zephira58/sysadmin.git
+git clone https://github.com/zephiowl/sysadmin.git
 cd sysadmin
 ```
 
