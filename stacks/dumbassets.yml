@@ -21,4 +21,5 @@ services:
       - CURRENCY_LOCALE=${CURRENCY_LOCALE}
 
 volumes:
-  dumbassets-data: {}
+  dumbassets-data:
+    external: true
