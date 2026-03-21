@@ -78,6 +78,7 @@ services:
       - openclaw-config:/data/.openclaw
       # Workspace directory
       - openclaw-workspace:/data/workspace
+      - openclaw-workspace:/root/workspace
     depends_on:
       browser:
         condition: service_healthy
