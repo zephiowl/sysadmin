@@ -76,6 +76,7 @@ services:
     volumes:
       # Persist OpenClaw state and config
       - openclaw-config:/data/.openclaw
+      - openclaw-config:/root/.openclaw
       # Workspace directory
       - openclaw-workspace:/data/workspace
       - openclaw-workspace:/root/openclaw
