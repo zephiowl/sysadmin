@@ -75,9 +75,9 @@ services:
       - PORT=${PORT}
     volumes:
       # Persist OpenClaw state and config
-      - /root/openclaw/.openclaw:/data/.openclaw
+      - openclaw-config:/data/.openclaw
       # Workspace directory
-      - /root/openclaw:/data/workspace
+      - openclaw-workspace:/data/workspace
     depends_on:
       browser:
         condition: service_healthy
@@ -99,7 +99,7 @@ services:
       - TZ=ACST
       - CHROME_CLI=--remote-debugging-port=9222
     volumes:
-      - /root/openclaw/browser-data:/config
+      - openclaw-browser-data:/config
     shm_size: 2g
     healthcheck:
       test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/9222' || exit 1"]
@@ -113,3 +113,14 @@ networks:
   openclaw-net:
     name: openclaw-net
     driver: bridge
+
+volumes:
+  openclaw-config:
+    external: true
+    name: openclaw-config
+  openclaw-workspace:
+    external: true
+    name: openclaw-workspace
+  openclaw-browser-data:
+    external: true
+    name: openclaw-browser-data
