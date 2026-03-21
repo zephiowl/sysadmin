@@ -1,0 +1,115 @@
+services:
+  openclaw:
+    image: "coollabsio/openclaw:latest"
+    container_name: openclaw
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # Authentication
+      - AUTH_USERNAME=${AUTH_USERNAME}
+      - AUTH_PASSWORD=${AUTH_PASSWORD}
+      
+      # Gateway
+      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - OPENCLAW_GATEWAY_PORT=${OPENCLAW_GATEWAY_PORT}
+      - OPENCLAW_GATEWAY_BIND=${OPENCLAW_GATEWAY_BIND}
+      - OPENCLAW_STATE_DIR=${OPENCLAW_STATE_DIR}
+      - OPENCLAW_WORKSPACE_DIR=${OPENCLAW_WORKSPACE_DIR}
+      - OPENCLAW_PRIMARY_MODEL=${OPENCLAW_PRIMARY_MODEL}
+      
+      # AI Providers
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - XAI_API_KEY=${XAI_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
+      - CEREBRAS_API_KEY=${CEREBRAS_API_KEY}
+      - VENICE_API_KEY=${VENICE_API_KEY}
+      - MOONSHOT_API_KEY=${MOONSHOT_API_KEY}
+      - KIMI_API_KEY=${KIMI_API_KEY}
+      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
+      - ZAI_API_KEY=${ZAI_API_KEY}
+      - AI_GATEWAY_API_KEY=${AI_GATEWAY_API_KEY}
+      - OPENCODE_API_KEY=${OPENCODE_API_KEY}
+      - SYNTHETIC_API_KEY=${SYNTHETIC_API_KEY}
+      - COPILOT_GITHUB_TOKEN=${COPILOT_GITHUB_TOKEN}
+      - XIAOMI_API_KEY=${XIAOMI_API_KEY}
+      - QWEN_API_KEY=${QWEN_API_KEY}
+      - BRAVE_SEARCH_API_KEY=${BRAVE_SEARCH_API_KEY}
+      - LEONARDO_AI_API_KEY=${LEONARDO_AI_API_KEY}
+      - TALK_API_KEY=${TALK_API_KEY}
+      
+      # AWS Bedrock
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_REGION=${AWS_REGION}
+      - AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+      - BEDROCK_PROVIDER_FILTER=${BEDROCK_PROVIDER_FILTER}
+      
+      # Browser
+      - BROWSER_CDP_URL=${BROWSER_CDP_URL}
+      - BROWSER_DEFAULT_PROFILE=${BROWSER_DEFAULT_PROFILE}
+      - BROWSER_EVALUATE_ENABLED=${BROWSER_EVALUATE_ENABLED}
+      - BROWSER_SNAPSHOT_MODE=${BROWSER_SNAPSHOT_MODE}
+      - BROWSER_REMOTE_TIMEOUT_MS=${BROWSER_REMOTE_TIMEOUT_MS}
+      - BROWSER_REMOTE_HANDSHAKE_TIMEOUT_MS=${BROWSER_REMOTE_HANDSHAKE_TIMEOUT_MS}
+      
+      # Messaging
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN}
+      - SLACK_APP_TOKEN=${SLACK_APP_TOKEN}
+      - WHATSAPP_ENABLED=${WHATSAPP_ENABLED}
+      
+      # Other
+      - DEEPGRAM_API_KEY=${DEEPGRAM_API_KEY}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL}
+      - HOOKS_ENABLED=${HOOKS_ENABLED}
+      - HOOKS_PATH=${HOOKS_PATH}
+      - OPENCLAW_DOCKER_APT_PACKAGES=${OPENCLAW_DOCKER_APT_PACKAGES}
+      - MOONSHOT_BASE_URL=${MOONSHOT_BASE_URL}
+      - KIMI_BASE_URL=${KIMI_BASE_URL}
+      - PORT=${PORT}
+    volumes:
+      # Persist OpenClaw state and config
+      - /root/openclaw/.openclaw:/data/.openclaw
+      # Workspace directory
+      - /root/openclaw:/data/workspace
+    depends_on:
+      browser:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://127.0.0.1:8080/healthz"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+    networks:
+      - openclaw-net
+
+  browser:
+    image: "coollabsio/openclaw-browser:latest"
+    container_name: openclaw-browser
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=ACST
+      - CHROME_CLI=--remote-debugging-port=9222
+    volumes:
+      - /root/openclaw/browser-data:/config
+    shm_size: 2g
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/9222' || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - openclaw-net
+
+networks:
+  openclaw-net:
+    name: openclaw-net
+    driver: bridge
