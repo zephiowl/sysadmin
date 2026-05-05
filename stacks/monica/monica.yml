@@ -6,7 +6,7 @@ services:
       - 8085:80
     environment:
       - APP_KEY=${APP_KEY}
-      - DB_HOST=mariadb
+      - DB_HOST=${DB_HOST}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
     volumes:
