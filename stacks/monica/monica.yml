@@ -2,34 +2,18 @@ version: '3.8'
 services:
   app:
     image: monica
-    depends_on:
-      - db
     ports:
       - 8085:80
     environment:
       - APP_KEY=${APP_KEY}
-      - DB_HOST=db
-      - DB_USERNAME=monica
+      - DB_HOST=mariadb
+      - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
     volumes:
       - data:/var/www/html/storage
     restart: always
 
-  db:
-    image: mariadb:11
-    environment:
-      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=monica
-      - MYSQL_USER=monica
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-    volumes:
-      - mysql:/var/lib/mysql
-    restart: always
-
 volumes:
   data:
     name: data
-    external: true
-  mysql:
-    name: mysql
     external: true
