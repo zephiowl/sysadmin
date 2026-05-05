@@ -4,7 +4,7 @@ version: "3.9"
 
 services:
   app:
-    image: 5.0.0-beta-apache
+    image: monica:5.0.0-beta-apache
     depends_on:
       - db
     ports:
