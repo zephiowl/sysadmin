@@ -5,10 +5,10 @@ services:
     ports:
       - 8085:80
     environment:
-      - APP_KEY=${APP_KEY}
       - DB_HOST=${DB_HOST}
       - DB_USERNAME=${DB_USERNAME}
       - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
     volumes:
       - data:/var/www/html/storage
     restart: always
