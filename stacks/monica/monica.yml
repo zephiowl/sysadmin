@@ -14,7 +14,7 @@ services:
       - DB_HOST=db
       - DB_DATABASE=monica
       - DB_USERNAME=monica
-      - DB_PASSWORD=secret
+      - DB_PASSWORD=${DB_PASSWORD}
       - LOG_CHANNEL=stderr
       - CACHE_DRIVER=database
       - SESSION_DRIVER=database
@@ -29,7 +29,7 @@ services:
       - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_DATABASE=monica
       - MYSQL_USER=monica
-      - MYSQL_PASSWORD=secret
+      - MYSQL_PASSWORD=${DB_PASSWORD}
     volumes:
       - mysqldata:/var/lib/mysql
     restart: always
@@ -37,6 +37,8 @@ services:
 
 volumes:
   data:
+    external: true
     driver: local
   mysqldata:
+    external: true
     driver: local
