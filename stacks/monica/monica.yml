@@ -6,6 +6,7 @@ services:
       - 8085:80
     environment:
       - DB_CONNECTION=sqlite
+      - DB_DATABASE=/database.sqlite
     volumes:
       - monica-data:/var/www/html/storage
     restart: always
