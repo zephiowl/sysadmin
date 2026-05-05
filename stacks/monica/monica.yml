@@ -38,7 +38,5 @@ services:
 volumes:
   data:
     external: true
-    driver: local
   mysqldata:
     external: true
-    driver: local
