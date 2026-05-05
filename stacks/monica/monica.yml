@@ -18,7 +18,7 @@ services:
   db:
     image: mariadb:11
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MARIADB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
       - MYSQL_DATABASE=monica
       - MYSQL_USER=monica
       - MYSQL_PASSWORD=${DB_PASSWORD}
