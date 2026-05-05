@@ -5,15 +5,12 @@ services:
     ports:
       - 8085:80
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_USERNAME=${DB_USERNAME}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_DATABASE=${DB_DATABASE}
+      - DB_CONNECTION=sqlite
     volumes:
-      - data:/var/www/html/storage
+      - monica-data:/var/www/html/storage
     restart: always
 
 volumes:
-  data:
-    name: data
+  monica-data:
+    name: monica-data
     external: true
